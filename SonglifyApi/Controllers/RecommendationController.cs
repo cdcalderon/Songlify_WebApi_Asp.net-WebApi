@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -23,7 +24,14 @@ namespace SonglifyApi.Controllers
         [AuthorizeLevel(AuthorizationLevel.Anonymous)]
         public IQueryable<Recommendation> GetAllRecommendation()
         {
-            return Query(); 
+            //using (MobileServiceContext context = new MobileServiceContext())
+            //{
+            //    int numberOfSongs = 10;
+            //    Random rand = new Random();
+            //    int toSkip = rand.Next(1, context.Recommendations.Count() - (numberOfSongs + 1));
+            //    return context.Recommendations.Skip(toSkip).Take(numberOfSongs);
+            //}
+            return Query().Take(10); 
         }
 
         // GET tables/Recommendation/48D68C86-6EA6-4C25-AA33-223FC9A27959
@@ -56,8 +64,6 @@ namespace SonglifyApi.Controllers
                         SongId = r.SongId
                     }).FirstOrDefault();
             };
-
-
         }
 
         // PATCH tables/Recommendation/48D68C86-6EA6-4C25-AA33-223FC9A27959
